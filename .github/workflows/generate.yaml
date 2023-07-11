@@ -1,0 +1,91 @@
+name: Generate
+run-name: Generate ${{ inputs.crate-type }} ${{ inputs.show-crate-name && format('{0} ', inputs.crate-name) || '' }}${{ inputs.at-gh-username && format('@{0}', inputs.gh-username) || '' }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      show-crate-name:
+        description: "Display crate name on Actions"
+        default: true
+        type: boolean
+      at-gh-username:
+        description: "At github user on Actions"
+        default: false
+        type: boolean
+      crate-name:
+        required: true
+        type: string
+      crate-type:
+        default: bin
+        type: choice
+        options:
+          - bin
+          - lib
+      gh-username:
+        required: true
+        type: string
+      copyright-year:
+        required: true
+        default: "2023"
+        type: string
+      use-badge:
+        default: true
+        type: boolean
+      use-deps:
+        default: true
+        type: boolean
+      use-rust-template:
+        default: true
+        type: boolean
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: cargo-generate
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      #- name: Check template exits
+
+      - name: Prexec
+        run: |
+          ########## script ##########
+          dist="$(pwd)/__dist__"
+
+          #--silent
+          generate_cmd="cargo generate --destination $dist --path ./template --name '${{ inputs.crate-name }}' --${{ inputs.crate-type }}"
+
+          generate_define="--define gh-username=${{ inputs.gh-username }}"
+          generate_define+=" --define copyright-year=${{ inputs.copyright-year }}"
+          generate_define+=" --define use-badge=${{ inputs.use-badge }}"
+          generate_define+=" --define use-deps=${{ inputs.use-deps }}"
+          generate_define+=" --define use-rust-template=${{ inputs.use-rust-template }}"
+
+          echo "DIST=${dist}" | tee -a "$GITHUB_ENV"
+          echo "GENERATE_CMD=${generate_cmd}" | tee -a "$GITHUB_ENV"
+          echo "GENERATE_DEFINE=${generate_define}" | tee -a "$GITHUB_ENV"
+
+      - name: Install cargo-generate
+        uses: baptiste0928/cargo-install@v2
+        with:
+          crate: cargo-generate
+          features: vendored-openssl
+
+      - name: Generate template
+        run: |
+          ########## script ##########
+          $GENERATE_CMD $GENERATE_DEFINE
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: template-${{ inputs.crate-name }}
+          path: ${{ env.DIST }}
