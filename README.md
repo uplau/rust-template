@@ -6,7 +6,8 @@
 A github rust workflows template, just want to focus on coding.
 
 - [Demo template](https://github.com/uplau/rust-template/tree/demo)
-- [View actions](https://github.com/uplau/rust-template/actions/workflows/generate.yaml)
+- [GitHub Actions](https://github.com/uplau/rust-template/actions/workflows/generate.yaml)
+- [Workflows file](.github/workflows/generate.yaml)
 
 ## Table of Contents
 
@@ -18,17 +19,21 @@ A github rust workflows template, just want to focus on coding.
 
 ## Feature
 
-- [x] Fast generate template with [GitHub Actions](https://github.com/uplau/rust-template/actions/workflows/generate.yaml) and caching
+- [x] Fast generate template with GitHub Actions and caching
 - [x] Support [cargo-generate](https://github.com/cargo-generate/cargo-generate)
-- [ ] ??Directly create your repository??
+- [ ] ??Directly create your Github repository??
+- [ ] Execution git init
 
 ### Template
 
 - [x] [Automated releases based on conventional commits](https://github.com/google-github-actions/release-please-action)
+- [ ] Automated releases based on push vTag
 - [x] Continuous integration with caching
 - [x] Cross-platform static compilation
 - [x] [Upload artifact](https://github.com/actions/upload-artifact/tree/main)
 - [x] Publish to Github releases
+- [ ] [contrib.rocks](https://contrib.rocks/)
+- [ ] [starcharts](https://starchart.cc/)
 
 ## Usage
 
@@ -50,14 +55,22 @@ This will not affect your Github, give it a try:
 
 [See more](https://github.com/cargo-generate/cargo-generate).
 
+```bash
+# bin
+cargo generate --git https://github.com/uplau/rust-template ./template --name "crate-name" --bin
+
+# lib
+cargo generate --git https://github.com/uplau/rust-template ./template --name "crate-name" --lib
+```
+
 ## Template Options
 
 | Field             | Type       | Default  | Description                                                 |
 | ----------------- | ---------- | -------- | ----------------------------------------------------------- |
 | crate-name        | string     | required | Package name                                                |
 | crate-type        | bin or lib | bin      | [Linkage](https://doc.rust-lang.org/reference/linkage.html) |
-| gh-username       | string     | required | GitHub username (or organization)                           |
-| copyright-year    | string     | 2023     | Copyright year                                              |
+| gh-username       | string     | required | GitHub username (or organization), for filling LICENSE      |
+| copyright-year    | string     | 2023     | Copyright year, for filling LICENSE                         |
 | use-badge         | bool       | true     | Insert status badge to README top                           |
 | use-deps          | bool       | true     | Insert commonly use deps to Cargo.toml                      |
 | use-rust-template | bool       | true     | Insert rust-template to README#Contributing                 |
@@ -77,4 +90,4 @@ This will not affect your Github, give it a try:
 rust-template is licensed under either of the following, at your option:
 
 - [MIT License](./LICENSE-MIT)
-- [Apache License, Version 2.0](./LICENSE-APACHE)
+- [Apache-2.0 License](./LICENSE-APACHE)
