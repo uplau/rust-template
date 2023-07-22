@@ -1,0 +1,35 @@
+[template]
+cargo_generate_version = ">=0.18.0"
+
+[placeholders.gh-username]
+type = "string"
+prompt = "GitHub username (or organization)"
+# The username cannot end with a hyphen, too, but
+# this requirement is not captured by the regex at the moment.
+regex = "^[A-Za-z0-9][A-Za-z0-9-]{0,38}$"
+
+[placeholders.copyright-year]
+type = "string"
+prompt = "Copyright year"
+default = "2023"
+
+[placeholders.use-badge]
+type = "bool"
+prompt = "Insert status badge to README top"
+default = true
+
+[placeholders.use-deps]
+type = "bool"
+prompt = "Insert commonly use deps to Cargo.toml"
+default = true
+
+[placeholders.use-rust-template]
+type = "bool"
+prompt = "Insert rust-template to README#Contributing"
+default = true
+
+[conditional.'crate_type == "lib"']
+ignore = ["src/main.rs"]
+
+[conditional.'crate_type == "bin"']
+ignore = ["src/lib.rs"]

@@ -1,0 +1,216 @@
+name: CI/CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      prerelease:
+        default: true
+        type: boolean
+      tag_name:
+        required: true
+        type: string
+
+  push:
+    paths: [".cargo/**", "src/**", "tests/**", "Cargo.*", "CHANGELOG*"]
+    branches: [main]
+
+  pull_request:
+    paths: [".cargo/**", "src/**", "tests/**", "Cargo.*", "CHANGELOG*"]
+    branches: [main]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  release_please:
+    name: Release please
+    if: ${{ !contains(github.event_name, 'workflow_dispatch') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: rust
+          prerelease: true
+
+  ci:
+    name: Patrol
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Prexec
+        run: |
+          ########## script ##########
+          case "${{ matrix.os }}" in
+            *'windows'*)
+              echo "OPENSSL_SRC_PERL=C:/Strawberry/perl/bin/perl" | tee -a "$GITHUB_ENV"
+              ;;
+          esac
+
+      - name: Run tests
+        run: cargo test --all-features --workspace
+
+      - name: Formatting check
+        run: cargo fmt --all --check
+
+      - name: Clippy check
+        run: cargo clippy --all-targets --all-features --workspace -- -D warnings
+
+  build:
+    name: Build ${{ matrix.target }}
+    needs: [ci]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          - target: aarch64-apple-darwin
+            os: macos-latest
+
+          - target: aarch64-unknown-linux-musl
+            os: ubuntu-latest
+            use-cross: true
+
+          - target: x86_64-apple-darwin
+            os: macos-latest
+
+          - target: x86_64-unknown-linux-musl
+            os: ubuntu-latest
+
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install cross
+        if: matrix.use-cross
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cross
+
+      - name: Prexec
+        run: |
+          ########## script ##########
+          case "${{ matrix.target }}" in
+            *'-musl')
+              echo "+ install musl-tools"
+              sudo apt-get update -qq >/dev/null && sudo apt-get install -qqy musl-tools >/dev/null
+              ;;
+            *'-windows-'*)
+              echo "OPENSSL_SRC_PERL=C:/Strawberry/perl/bin/perl" | tee -a "$GITHUB_ENV"
+              ;;
+          esac
+
+          build_cmd="cargo"
+          [[ "${{ matrix.use-cross }}" == "true" ]] && build_cmd="cross"
+          echo "BUILD_CMD=${build_cmd}" | tee -a "$GITHUB_ENV"
+
+          cargo_metadata="$(cargo metadata --no-deps --format-version 1)"
+          echo "CRATE_NAME=$(echo $cargo_metadata | jq -r ".packages[0].name")" | tee -a "$GITHUB_ENV"
+          echo "CRATE_VERSION=$(echo $cargo_metadata | jq -r ".packages[0].version")" | tee -a "$GITHUB_ENV"
+
+      - name: Build ${{ env.CRATE_NAME }} ${{ env.CRATE_VERSION }}
+        run: |
+          $BUILD_CMD build --locked --release --target="${{ matrix.target }}"
+
+      - name: Create archive
+        id: create_archive
+        run: |
+          ########## script ##########
+          dist="$(pwd)/__dist__"
+          mkdir "$dist" && echo "$_" && echo
+
+          ########## binary ##########
+          cp "$(find "./target/${{ matrix.target }}/release/" -maxdepth 1 -type f -perm 755)" "${dist}/"
+
+          ########## misc ##########
+          cp "README"* "LICENSE"* "CHANGELOG"* "${dist}/" || echo
+
+          ########## list ##########
+          echo "List long format:"
+          ls -lh "${dist}/" && echo
+
+          echo "List dynamic dependencies:"
+          ldd_cmd="ldd"
+          [[ "$RUNNER_OS" == "macOS" ]] && ldd_cmd="otool -L"
+          $ldd_cmd "${dist}/${CRATE_NAME}" || :
+          echo
+
+          ########## archive ##########
+          archive_prefix="${CRATE_NAME}-v${CRATE_VERSION}-${{ matrix.target }}"
+          case "$RUNNER_OS" in
+            Windows)
+                archive_suffix=".zip"
+                archive_cmd="7z a -r"
+                archive_args="${dist}/"*
+                ;;
+            *)
+                archive_suffix=".tar.gz"
+                archive_cmd="tar -zcf"
+                archive_args="-C ${dist}/ ."
+                ;;
+          esac
+          archive="${archive_prefix}${archive_suffix}"
+          $archive_cmd "$archive" $archive_args
+          echo "path=${archive}" | tee -a "$GITHUB_OUTPUT"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: ${{ steps.create_archive.outputs.path }}
+
+  manually_release:
+    name: Manually release
+    needs: [build]
+    if: contains(github.event_name, 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v3
+      - uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          prerelease: ${{ inputs.prerelease }}
+          tag_name: ${{ inputs.tag_name }}
+          fail_on_unmatched_files: true
+          files: |
+            artifact/*.tar.gz
+            artifact/*.zip
+
+  automatic_release:
+    name: Automatic release
+    needs: [release_please, build]
+    if: needs.release_please.outputs.created
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v3
+      - uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.release_please.outputs.tag_name }}
+          fail_on_unmatched_files: true
+          files: |
+            artifact/*.tar.gz
+            artifact/*.zip
