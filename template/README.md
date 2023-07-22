@@ -20,5 +20,5 @@ See the [contributing guidelines](./CONTRIBUTING.md) for more information.
 
 {{project-name}} is licensed under either of the following, at your option:
 
-- [MIT license](./LICENSE-MIT)
-- [Apache License, Version 2.0](./LICENSE-APACHE)
+- [MIT License](./LICENSE-MIT)
+- [Apache-2.0 License](./LICENSE-APACHE)
