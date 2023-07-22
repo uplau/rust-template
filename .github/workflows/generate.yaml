@@ -48,9 +48,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: cargo-generate
-
       - uses: dtolnay/rust-toolchain@stable
 
       #- name: Check template exits
