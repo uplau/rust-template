@@ -7,23 +7,22 @@ A github rust workflows template, just want to focus on coding.
 
 - [Demo template](https://github.com/uplau/rust-template/tree/demo)
 - [GitHub Actions](https://github.com/uplau/rust-template/actions/workflows/generate.yaml)
-- [Workflows file](.github/workflows/generate.yaml)
+- [Workflows](.github/workflows/generate.yaml)
 
 ## Table of Contents
 
-- [Feature](#feature)
+- [Features](#features)
 - [Usage](#usage)
-- [Template Options](#template-options)
+- [Template options](#template-options)
 - [Template workflows](#template-workflows)
 - [Contributors](#contributors)
 - [License](#license)
 
-## Feature
+## Features
 
 - [x] Fast generate template with GitHub Actions and caching
 - [x] Support [cargo-generate](https://github.com/cargo-generate/cargo-generate)
 - [ ] ??Directly create your Github repository??
-- [ ] Execution git init
 
 ### Template
 
@@ -64,7 +63,7 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 cargo generate --git https://github.com/uplau/rust-template ./template --name "crate-name" --lib
 ```
 
-## Template Options
+## Template options
 
 | Field             | Type       | Default  | Description                                                           |
 | ----------------- | ---------- | -------- | --------------------------------------------------------------------- |
@@ -83,7 +82,13 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 
 - `jobs.release_please`
 - `jobs.ci`
-- `jobs.build`
+  - `cargo test`
+  - `cargo fmt`
+  - `cargo clippy`
+- `jobs.build` `static link`
+  - Linux
+  - macOS
+  - Windows
 - `jobs.manually_release`
 - `jobs.automatic_release`
 
