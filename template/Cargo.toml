@@ -5,7 +5,7 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-[dependencies]{%if use-deps%}
+[dependencies]{% if use-deps %}
 anyhow = { version = "1" }
 human-panic = "1"
 lazy_static = "1.4"

@@ -18,6 +18,11 @@ type = "bool"
 prompt = "Insert status badge to README top"
 default = true
 
+[placeholders.use-contrib-rocks]
+type = "bool"
+prompt = "Insert contrib.rocks to README#Contributors"
+default = false
+
 [placeholders.use-deps]
 type = "bool"
 prompt = "Insert commonly use deps to Cargo.toml"

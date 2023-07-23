@@ -15,6 +15,7 @@ A github rust workflows template, just want to focus on coding.
 - [Usage](#usage)
 - [Template Options](#template-options)
 - [Template workflows](#template-workflows)
+- [Contributors](#contributors)
 - [License](#license)
 
 ## Feature
@@ -32,7 +33,7 @@ A github rust workflows template, just want to focus on coding.
 - [x] Cross-platform static compilation
 - [x] [Upload artifact](https://github.com/actions/upload-artifact/tree/main)
 - [x] Publish to Github releases
-- [ ] [contrib.rocks](https://contrib.rocks/)
+- [x] [contrib.rocks](https://contrib.rocks/)
 - [ ] [starcharts](https://starchart.cc/)
 
 ## Usage
@@ -65,15 +66,16 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 
 ## Template Options
 
-| Field             | Type       | Default  | Description                                                 |
-| ----------------- | ---------- | -------- | ----------------------------------------------------------- |
-| crate-name        | string     | required | Package name                                                |
-| crate-type        | bin or lib | bin      | [Linkage](https://doc.rust-lang.org/reference/linkage.html) |
-| gh-username       | string     | required | GitHub username (or organization), for filling LICENSE      |
-| copyright-year    | string     | 2023     | Copyright year, for filling LICENSE                         |
-| use-badge         | bool       | true     | Insert status badge to README top                           |
-| use-deps          | bool       | true     | Insert commonly use deps to Cargo.toml                      |
-| use-rust-template | bool       | true     | Insert rust-template to README#Contributing                 |
+| Field             | Type       | Default  | Description                                                           |
+| ----------------- | ---------- | -------- | --------------------------------------------------------------------- |
+| crate-name        | string     | required | Package name                                                          |
+| crate-type        | bin or lib | bin      | [Linkage](https://doc.rust-lang.org/reference/linkage.html)           |
+| gh-username       | string     | required | GitHub username (or organization), for filling LICENSE                |
+| copyright-year    | string     | 2023     | Copyright year, for filling LICENSE                                   |
+| use-badge         | bool       | true     | Insert status badge to README top                                     |
+| use-contrib-rocks | bool       | false    | Insert [contrib.rocks](https://contrib.rocks/) to README#Contributors |
+| use-deps          | bool       | true     | Insert commonly use deps to Cargo.toml                                |
+| use-rust-template | bool       | true     | Insert rust-template to README#Contributing                           |
 
 ## Template workflows
 
@@ -84,6 +86,12 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 - `jobs.build`
 - `jobs.manually_release`
 - `jobs.automatic_release`
+
+## Contributors
+
+<a href="https://github.com/uplau/rust-template/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=uplau/rust-template&max=400&columns=20" />
+</a>
 
 ## License
 
