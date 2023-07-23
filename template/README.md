@@ -1,4 +1,4 @@
-# {{project-name}}{%if use-badge%}
+# {{project-name}}{% if use-badge %}
 
 ![GitHub workflow status](https://github.com/{{gh-username}}/{{project-name}}/actions/workflows/cicd.yaml/badge.svg)
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/{{gh-username}}/{{project-name}})
@@ -7,14 +7,21 @@
 
 ## Table of Contents
 
-- [Contributing](#contributing)
+- [Contributing](#contributing){% if use-contrib-rocks %}
+- [Contributors](#contributors){%- endif %}
 - [License](#license)
 
-## Contributing{%if use-rust-template%}
+## Contributing{% if use-rust-template %}
 
 This project uses [rust-template](https://github.com/uplau/rust-template) to start.{%- endif %}
 
-See the [contributing guidelines](./CONTRIBUTING.md) for more information.
+See the [contributing guidelines](./CONTRIBUTING.md) for more information.{% if use-contrib-rocks %}
+
+## Contributors
+
+<a href="https://github.com/{{gh-username}}/{{project-name}}/graphs/contributors">
+<img src="https://contrib.rocks/image?repo={{gh-username}}/{{project-name}}&max=400&columns=20" />
+</a>{%- endif %}
 
 ## License
 

@@ -31,6 +31,9 @@ on:
       use-badge:
         default: true
         type: boolean
+      use-contrib-rocks:
+        default: false
+        type: boolean
       use-deps:
         default: true
         type: boolean
@@ -63,6 +66,7 @@ jobs:
           generate_define="--define gh-username=${{ inputs.gh-username }}"
           generate_define+=" --define copyright-year=${{ inputs.copyright-year }}"
           generate_define+=" --define use-badge=${{ inputs.use-badge }}"
+          generate_define+=" --define use-contrib-rocks=${{ inputs.use-contrib-rocks }}"
           generate_define+=" --define use-deps=${{ inputs.use-deps }}"
           generate_define+=" --define use-rust-template=${{ inputs.use-rust-template }}"
 
@@ -79,7 +83,8 @@ jobs:
       - name: Generate template
         run: |
           ########## script ##########
-          $GENERATE_CMD $GENERATE_DEFINE
+          #$GENERATE_CMD $GENERATE_DEFINE
+          eval $GENERATE_CMD $GENERATE_DEFINE
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
