@@ -1,7 +1,7 @@
 # rust-template
 
-![GitHub workflow status](https://github.com/uplau/rust-template/actions/workflows/generate.yaml/badge.svg)
-![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)
+[![GitHub workflow status](https://github.com/uplau/rust-template/actions/workflows/generate.yaml/badge.svg)](https://github.com/uplau/rust-template/actions/workflows/generate.yaml)
+[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](./LICENSE-MIT)
 
 A github rust workflows template, just want to focus on coding.
 

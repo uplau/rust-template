@@ -1,9 +1,9 @@
 # {{project-name}}{% if use-badge %}
 
-![GitHub workflow status](https://github.com/{{gh-username}}/{{project-name}}/actions/workflows/cicd.yaml/badge.svg)
-![GitHub release (with filter)](https://img.shields.io/github/v/release/{{gh-username}}/{{project-name}})
+[![GitHub workflow status](https://github.com/{{gh-username}}/{{project-name}}/actions/workflows/cicd.yaml/badge.svg)](https://github.com/{{gh-username}}/{{project-name}}/actions/workflows/cicd.yaml)
+[![GitHub release (with filter)](https://img.shields.io/github/v/release/{{gh-username}}/{{project-name}})](https://github.com/{{gh-username}}/{{project-name}}/releases/latest)
 ![GitHub all releases](https://img.shields.io/github/downloads/{{gh-username}}/{{project-name}}/total)
-![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg){%- endif %}
+[![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](./LICENSE-MIT){%- endif %}
 
 ## Table of Contents
 
