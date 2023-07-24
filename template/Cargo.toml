@@ -19,5 +19,6 @@ lto = true
 opt-level = "z"
 strip = true
 
-[lib]
+{% if crate_type == "lib" -%}[lib]
 crate-type = ["rlib"]
+{% endif %}

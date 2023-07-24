@@ -61,6 +61,7 @@ jobs:
               echo "OPENSSL_SRC_PERL=C:/Strawberry/perl/bin/perl" | tee -a "$GITHUB_ENV"
               ;;
           esac
+          cargo update
 
       - name: Run tests
         run: cargo test --all-features --workspace
@@ -129,6 +130,7 @@ jobs:
           echo "CRATE_NAME=$(echo $cargo_metadata | jq -r ".packages[0].name")" | tee -a "$GITHUB_ENV"
           echo "CRATE_VERSION=$(echo $cargo_metadata | jq -r ".packages[0].version")" | tee -a "$GITHUB_ENV"
 
+          cargo update
       - name: Build ${{ env.CRATE_NAME }} ${{ env.CRATE_VERSION }}
         run: |
           $BUILD_CMD build --locked --release --target="${{ matrix.target }}"
