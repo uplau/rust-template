@@ -85,9 +85,9 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 
 > This document is not exhaustive, [see](./template/.github/workflows/cicd.yaml)
 
-The workflows of `bin` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644583514).
+The workflows of `bin` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644583514), [view file here](https://github.com/uplau/rust-template-demo/blob/main/.github/workflows/cicd.yaml).
 
-The workflows of `lib` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644157705).
+The workflows of `lib` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644157705), [view file here](https://github.com/uplau/rust-template-demo/blob/lib-default-use/.github/workflows/cicd.yaml).
 
 ### `jobs.release_please` `only_bin`
 
