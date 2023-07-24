@@ -1,6 +1,6 @@
 name: CI{% if crate_type == "bin" %}/CD{% endif %}
 
-on:
+on:{% if crate_type == "bin" %}
   workflow_dispatch:
     inputs:
       prerelease:
@@ -9,7 +9,7 @@ on:
       tag_name:
         required: true
         type: string
-
+{% endif %}
   push:
     paths: [".cargo/**", "src/**", "tests/**", "Cargo.*", "CHANGELOG*"]
     branches: [main]
