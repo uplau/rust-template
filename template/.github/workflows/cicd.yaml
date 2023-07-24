@@ -22,7 +22,8 @@ defaults:
   run:
     shell: bash
 
-jobs:
+jobs:{% if crate_type == "bin" %}
+{%- raw %}
   release_please:
     name: Release please
     if: ${{ !contains(github.event_name, 'workflow_dispatch') }}
@@ -39,7 +40,10 @@ jobs:
         with:
           release-type: rust
           prerelease: true
+{% endraw %}
+{%- endif %}
 
+{%- raw %}
   ci:
     name: Patrol
     runs-on: ${{ matrix.os }}
@@ -71,7 +75,8 @@ jobs:
 
       - name: Clippy check
         run: cargo clippy --all-targets --all-features --workspace -- -D warnings
-
+{%- endraw %}
+{% if crate_type == "bin" %}{% raw %}
   build:
     name: Build ${{ matrix.target }}
     needs: [ci]
@@ -216,3 +221,4 @@ jobs:
           files: |
             artifact/*.tar.gz
             artifact/*.zip
+{% endraw %}{%- endif %}
