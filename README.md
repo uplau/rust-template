@@ -5,11 +5,11 @@
 
 A github rust workflows template, just want to focus on coding.
 
-- [Demo template](https://github.com/uplau/rust-template/tree/demo)
+- [Demo template](https://github.com/uplau/rust-template-demo)
 - [GitHub Actions](https://github.com/uplau/rust-template/actions/workflows/generate.yaml)
-- [Workflows](.github/workflows/generate.yaml)
+- [Workflow file](.github/workflows/generate.yaml)
 
-## Table of Contents
+## Table of contents
 
 - [Features](#features)
 - [Usage](#usage)
@@ -26,18 +26,23 @@ A github rust workflows template, just want to focus on coding.
 
 ### Template
 
-- [x] [Automated releases based on conventional commits](https://github.com/google-github-actions/release-please-action)
-- [ ] Automated releases based on push vTag
+- [x] Based on conventional commits
+- [ ] Based on push vTag
+- [x] Bumps Crate version
+- [x] Create GitHub tags
+- [x] Generate CHANGELOG
 - [x] Continuous integration with caching
 - [x] Cross-platform static compilation
 - [x] [Upload artifact](https://github.com/actions/upload-artifact/tree/main)
+- [ ] Publish to Crates
+- [ ] Publish to Docker hub
 - [x] Publish to Github releases
 - [x] [contrib.rocks](https://contrib.rocks/)
 - [ ] [starcharts](https://starchart.cc/)
 
 ## Usage
 
-### Use GitHub Actions
+### Use GitHub actions
 
 This will not affect your Github, give it a try:
 
@@ -80,17 +85,46 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 
 > This document is not exhaustive, [see](./template/.github/workflows/cicd.yaml)
 
-- `jobs.release_please`
-- `jobs.ci`
-  - `cargo test`
-  - `cargo fmt`
-  - `cargo clippy`
-- `jobs.build` `static link`
-  - Linux
-  - macOS
-  - Windows
-- `jobs.manually_release`
-- `jobs.automatic_release`
+The workflows of `bin` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644583514).
+
+The workflows of `lib` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644157705).
+
+### `jobs.release_please` `only_bin`
+
+We use [Release Please](https://github.com/google-github-actions/release-please-action) parses your git history, looking for [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/), and creating release PRs to:
+
+> [What's a Release PR?](https://github.com/google-github-actions/release-please-action#whats-a-release-pr)
+
+> **You need allow GitHub Actions to create and approve pull requests**, setting can be managed by admins in organization settings under Actions > General > Workflow permissions.
+
+- Bumps Crate version
+- Create GitHub tags
+- Generate CHANGELOG
+
+### `jobs.ci`
+
+We run the following command to complete continuous integration:
+
+- `cargo test`
+- `cargo fmt`
+- `cargo clippy`
+
+### `jobs.build` `only_bin`
+
+When ci is passed, we build under the following targets:
+
+> `static_link` `64bit`
+
+- `macOS`
+- `Linux`
+- `Windows`
+
+### `jobs.*_release` `only_bin`
+
+When the build passes, we upload the artifacts and publish to Github releases, which you can download at any time at the bottom of the workflow summary page:
+
+- `manually_release`: Triggered by `workflow_dispatch`
+- `automatic_release`: Triggered by `release_please`
 
 ## Contributors
 
