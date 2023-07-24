@@ -6,7 +6,11 @@ license = "MIT OR Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]{% if use-deps %}
+{%- if crate_type == "bin" %}
 anyhow = { version = "1" }
+{%- else %}
+thiserror= { version = "1" }
+{%- endif %}
 human-panic = "1"
 lazy_static = "1.4"
 serde = { version = "1", features = ["derive"] }
