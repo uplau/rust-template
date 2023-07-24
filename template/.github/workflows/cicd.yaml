@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI{% if crate_type == "bin" %}/CD{% endif %}
 
 on:
   workflow_dispatch:
