@@ -1,8 +1,8 @@
 # {{project-name}}{% if use-badge %}
 
-[![GitHub workflow status](https://github.com/{{gh-username}}/{{project-name}}/actions/workflows/cicd.yaml/badge.svg)](https://github.com/{{gh-username}}/{{project-name}}/actions/workflows/cicd.yaml)
-[![GitHub release (with filter)](https://img.shields.io/github/v/release/{{gh-username}}/{{project-name}})](https://github.com/{{gh-username}}/{{project-name}}/releases/latest)
-![GitHub all releases](https://img.shields.io/github/downloads/{{gh-username}}/{{project-name}}/total)
+[![GitHub workflow status](https://github.com/{{owner}}/{{project-name}}/actions/workflows/cicd.yaml/badge.svg)](https://github.com/{{owner}}/{{project-name}}/actions/workflows/cicd.yaml)
+[![GitHub release (with filter)](https://img.shields.io/github/v/release/{{owner}}/{{project-name}})](https://github.com/{{owner}}/{{project-name}}/releases/latest)
+![GitHub all releases](https://img.shields.io/github/downloads/{{owner}}/{{project-name}}/total)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](./LICENSE-MIT){%- endif %}
 
 ## Table of contents
@@ -19,8 +19,8 @@ See the [contributing guidelines](./CONTRIBUTING.md) for more information.{% if 
 
 ## Contributors
 
-<a href="https://github.com/{{gh-username}}/{{project-name}}/graphs/contributors">
-<img src="https://contrib.rocks/image?repo={{gh-username}}/{{project-name}}&max=400&columns=20" />
+<a href="https://github.com/{{owner}}/{{project-name}}/graphs/contributors">
+<img src="https://contrib.rocks/image?repo={{owner}}/{{project-name}}&max=400&columns=20" />
 </a>{%- endif %}
 
 ## License

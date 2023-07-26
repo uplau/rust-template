@@ -74,7 +74,7 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 | ----------------- | ---------- | -------- | --------------------------------------------------------------------- |
 | crate-name        | string     | required | Package name                                                          |
 | crate-type        | bin or lib | bin      | [Linkage](https://doc.rust-lang.org/reference/linkage.html)           |
-| owner             | string     | required | Owner, for filling LICENSE                                            |
+| owner             | string     | required | Owner, for filling README and LICENSE                                 |
 | copyright-year    | string     | 2023     | Copyright year, for filling LICENSE                                   |
 | use-badge         | bool       | true     | Insert status badge to README top                                     |
 | use-contrib-rocks | bool       | false    | Insert [contrib.rocks](https://contrib.rocks/) to README#Contributors |
