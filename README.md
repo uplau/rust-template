@@ -22,7 +22,7 @@ A github rust workflows template, just want to focus on coding.
 
 - [x] Fast generate template with GitHub Actions and caching
 - [x] Support [cargo-generate](https://github.com/cargo-generate/cargo-generate)
-- [ ] ??Directly create your Github repository??
+- [x] Directly create your Github repository
 
 ### Template
 
@@ -74,7 +74,7 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 | ----------------- | ---------- | -------- | --------------------------------------------------------------------- |
 | crate-name        | string     | required | Package name                                                          |
 | crate-type        | bin or lib | bin      | [Linkage](https://doc.rust-lang.org/reference/linkage.html)           |
-| gh-username       | string     | required | GitHub username (or organization), for filling LICENSE                |
+| owner             | string     | required | Owner, for filling LICENSE                                            |
 | copyright-year    | string     | 2023     | Copyright year, for filling LICENSE                                   |
 | use-badge         | bool       | true     | Insert status badge to README top                                     |
 | use-contrib-rocks | bool       | false    | Insert [contrib.rocks](https://contrib.rocks/) to README#Contributors |

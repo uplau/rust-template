@@ -1,12 +1,9 @@
 [template]
 cargo_generate_version = ">=0.18.0"
 
-[placeholders.gh-username]
+[placeholders.owner]
 type = "string"
-prompt = "GitHub username (or organization)"
-# The username cannot end with a hyphen, too, but
-# this requirement is not captured by the regex at the moment.
-regex = "^[A-Za-z0-9][A-Za-z0-9-]{0,38}$"
+prompt = "Owner"
 
 [placeholders.copyright-year]
 type = "string"

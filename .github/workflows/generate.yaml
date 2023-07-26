@@ -1,17 +1,20 @@
 name: Generate
-run-name: Generate ${{ inputs.crate-type }} ${{ inputs.show-crate-name && format('{0} ', inputs.crate-name) || '' }}${{ inputs.at-gh-username && format('@{0}', inputs.gh-username) || '' }}
+run-name: Generate ${{ inputs.crate-type }} ${{ inputs.crate-name }} ${{ inputs.create-gh-repo && format('{0}', 'and Create Github repository') || '' }}
 
 on:
   workflow_dispatch:
     inputs:
-      show-crate-name:
-        description: "Display crate name on Actions"
-        default: true
-        type: boolean
-      at-gh-username:
-        description: "At github user on Actions"
+      create-gh-repo:
+        description: "Create Github repository, authors will be ignored"
         default: false
         type: boolean
+      gh-repo-visibility:
+        description: "⬆️ Github repository visibility"
+        default: public
+        type: choice
+        options:
+          - public
+          - private
       crate-name:
         required: true
         type: string
@@ -21,7 +24,7 @@ on:
         options:
           - bin
           - lib
-      gh-username:
+      owner:
         required: true
         type: string
       copyright-year:
@@ -46,9 +49,9 @@ defaults:
     shell: bash
 
 jobs:
-  generate:
+  generate_template:
+    name: Generate template
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
@@ -63,7 +66,14 @@ jobs:
           #--silent
           generate_cmd="cargo generate --destination $dist --path ./template --name '${{ inputs.crate-name }}' --${{ inputs.crate-type }}"
 
-          generate_define="--define gh-username=${{ inputs.gh-username }}"
+          if [[ "${{ inputs.create-gh-repo }}" == "true" ]];then
+            owner="${{ github.repository_owner }}"
+            echo "Use github.repository_owner(${owner})"
+          else
+            owner="${{ inputs.owner }}"
+          fi
+          generate_define="--define owner=${owner}"
+
           generate_define+=" --define copyright-year=${{ inputs.copyright-year }}"
           generate_define+=" --define use-badge=${{ inputs.use-badge }}"
           generate_define+=" --define use-contrib-rocks=${{ inputs.use-contrib-rocks }}"
@@ -83,7 +93,6 @@ jobs:
       - name: Generate template
         run: |
           ########## script ##########
-          #$GENERATE_CMD $GENERATE_DEFINE
           eval $GENERATE_CMD $GENERATE_DEFINE
 
       - name: Upload artifacts
@@ -91,3 +100,30 @@ jobs:
         with:
           name: template-${{ inputs.crate-name }}
           path: ${{ env.DIST }}
+
+  create_github_repo:
+    name: Create Github repository
+    needs: [generate_template]
+    if: inputs.create-gh-repo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+      - name: Create Github repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_CREATE_REPO }}
+        run: |
+          ########## script ##########
+          cd "template-${{ inputs.crate-name }}/${{ inputs.crate-name }}"
+
+          default_branch="main"
+          git init -q --initial-branch "$default_branch"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .
+          #git commit -m "init: workspace" -m "[skip ci]" >/dev/null
+          git commit -m "init: workspace" >/dev/null
+
+          # permissions
+          # Access: Read and write
+          # Administration Contents Workflows
+          gh repo create --source . --push --${{ inputs.gh-repo-visibility }}
