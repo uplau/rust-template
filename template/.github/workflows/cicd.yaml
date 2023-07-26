@@ -221,8 +221,10 @@ jobs:{% raw %}
           gh api "$endpoint" > /dev/null && {
             gh api "$endpoint" -X DELETE && echo "DELETE tag ${{ inputs.tag_name }}"
 
-            release_id="$(gh api "repos/${{ github.repository }}/releases/tags/${{ inputs.tag_name }}" --jq '.id' 2>/dev/null)"
-            [[ -n "$release_id" ]] && gh api "repos/${{ github.repository }}/releases/${release_id}" -X DELETE && echo "DELETE releases $release_id"
+            release_id="$(gh api "repos/${{ github.repository }}/releases/tags/${{ inputs.tag_name }}" --jq ".id" 2>/dev/null)"
+            [[ -n "$release_id" ]] && {
+              gh api "repos/${{ github.repository }}/releases/${release_id}" -X DELETE && echo "DELETE releases $release_id"
+            }
           }
           :
 
