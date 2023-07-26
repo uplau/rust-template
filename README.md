@@ -1,10 +1,12 @@
 # rust-template
 
+[![View](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fuplau%2Frust-template&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=View&edge_flat=false)](https://hits.seeyoufarm.com)
 [![GitHub workflow status](https://github.com/uplau/rust-template/actions/workflows/generate.yaml/badge.svg)](https://github.com/uplau/rust-template/actions/workflows/generate.yaml)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](./LICENSE-MIT)
 
 A github rust workflows template, just want to focus on coding.
 
+- [Who uses?](https://github.com/search?q=in%3Areadme+uplau%2Frust-template&type=repositories)
 - [Demo template](https://github.com/uplau/rust-template-demo)
 - [GitHub Actions](https://github.com/uplau/rust-template/actions/workflows/generate.yaml)
 - [Workflow file](.github/workflows/generate.yaml)
@@ -53,8 +55,21 @@ This will not affect your Github, give it a try:
 5. When all work is done, at the bottom of the workflow summary page, download template artifacts.
 6. Enjoy!
 
-> When running for the first time, the cache needs to be created.
-> Next time, soon.
+> ⬆️ When running for the first time, the cache needs to be created. Next time, soon.
+
+**If need directly create your Github repository, in addition to all the above steps, you also need:**
+
+1. [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token).
+
+   > Repository access: `All repositories`
+
+   > Permissions > Repository permissions: `Administration` `Contents` `Workflows` > Access: `Read and write`
+
+2. Copy personal access token.
+
+3. [Creating encrypted secrets for a repository](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
+   > Name field:
+   > `PAT_CREATE_REPO`
 
 ### Use cargo-generate
 
@@ -74,7 +89,7 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 | ----------------- | ---------- | -------- | --------------------------------------------------------------------- |
 | crate-name        | string     | required | Package name                                                          |
 | crate-type        | bin or lib | bin      | [Linkage](https://doc.rust-lang.org/reference/linkage.html)           |
-| owner             | string     | required | Owner, for filling README and LICENSE                                 |
+| owner             | string     | required | Owner, for filling README and LICENSE and note `Cargo.toml`           |
 | copyright-year    | string     | 2023     | Copyright year, for filling LICENSE                                   |
 | use-badge         | bool       | true     | Insert status badge to README top                                     |
 | use-contrib-rocks | bool       | false    | Insert [contrib.rocks](https://contrib.rocks/) to README#Contributors |
@@ -83,11 +98,19 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 
 ## Template workflows
 
-> This document is not exhaustive, [see](./template/.github/workflows/cicd.yaml)
+Workflows of `bin` can be view:
 
-The workflows of `bin` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644583514), [view file here](https://github.com/uplau/rust-template-demo/blob/main/.github/workflows/cicd.yaml).
+- [automatic summary](https://github.com/uplau/rust-template-demo/actions/runs/5672076317)
+- [release please PR](https://github.com/uplau/rust-template-demo/pull/1)
+- [automatic release](https://github.com/uplau/rust-template-demo/releases/tag/v0.1.0)
+- [manually summary](https://github.com/uplau/rust-template-demo/actions/runs/5671922967)
+- [manually release](https://github.com/uplau/rust-template-demo/releases/tag/next)
+- [workflow file](https://github.com/uplau/rust-template-demo/blob/main/.github/workflows/cicd.yaml)
 
-The workflows of `lib` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644157705), [view file here](https://github.com/uplau/rust-template-demo/blob/lib-default-use/.github/workflows/cicd.yaml).
+Workflows of `lib` can be view:
+
+- [manually summary](https://github.com/uplau/rust-template-demo/actions/runs/5671896111)
+- [workflow file](https://github.com/uplau/rust-template-demo/blob/lib-default-use/.github/workflows/cicd.yaml)
 
 ### `jobs.release_please`
 

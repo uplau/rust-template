@@ -13,7 +13,7 @@
 
 ## Contributing{% if use-rust-template %}
 
-This project uses [rust-template](https://github.com/uplau/rust-template) to start.{%- endif %}
+This repository was created with [rust-template](https://github.com/uplau/rust-template).{%- endif %}
 
 See the [contributing guidelines](./CONTRIBUTING.md) for more information.{% if use-contrib-rocks %}
 
