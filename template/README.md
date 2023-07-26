@@ -5,7 +5,7 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/{{gh-username}}/{{project-name}}/total)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](./LICENSE-MIT){%- endif %}
 
-## Table of Contents
+## Table of contents
 
 - [Contributing](#contributing){% if use-contrib-rocks %}
 - [Contributors](#contributors){%- endif %}
