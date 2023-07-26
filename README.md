@@ -29,8 +29,8 @@ A github rust workflows template, just want to focus on coding.
 - [x] Based on conventional commits
 - [ ] Based on push vTag
 - [x] Bumps Crate version
-- [x] Create GitHub tags
-- [x] Generate CHANGELOG
+- [x] Create GitHub tag
+- [x] Generate Changelog
 - [x] Continuous integration with caching
 - [x] Cross-platform static compilation
 - [x] [Upload artifact](https://github.com/actions/upload-artifact/tree/main)
@@ -94,6 +94,10 @@ The workflows of `lib` can be [view summary here](https://github.com/uplau/rust-
 We use [Release Please](https://github.com/google-github-actions/release-please-action) parses your git history, looking for [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/), and creating release PRs to:
 
 > [What's a Release PR?](https://github.com/google-github-actions/release-please-action#whats-a-release-pr)
+
+> [How should I write my commits?](https://github.com/googleapis/release-please#how-should-i-write-my-commits)
+
+> [Does not create a release PR. Why?](https://github.com/googleapis/release-please#release-please-bot-does-not-create-a-release-pr-why)
 
 > **You need allow GitHub Actions to create and approve pull requests**, setting can be managed by admins in organization settings under Actions > General > Workflow permissions.
 
