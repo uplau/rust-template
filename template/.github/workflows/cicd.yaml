@@ -1,15 +1,15 @@
 name: CI{% if crate_type == "bin" %}/CD{% endif %}
 
-on:{% if crate_type == "bin" %}
-  workflow_dispatch:
+on:
+  workflow_dispatch:{% if crate_type == "bin" %}
     inputs:
       prerelease:
         default: true
         type: boolean
       tag_name:
         required: true
-        type: string
-{% endif %}
+        type: string{%- endif %}
+
   push:
     paths: [".cargo/**", "src/**", "tests/**", "Cargo.*", "CHANGELOG*"]
     branches: [main]
@@ -23,8 +23,7 @@ defaults:
   run:
     shell: bash
 
-jobs:{% if crate_type == "bin" %}
-{%- raw %}
+jobs:{% raw %}
   release_please:
     name: Release please
     if: ${{ !contains(github.event_name, 'workflow_dispatch') }}
@@ -42,8 +41,6 @@ jobs:{% if crate_type == "bin" %}
           release-type: rust
           prerelease: true
 {% endraw %}
-{%- endif %}
-
 {%- raw %}
   ci:
     name: Patrol

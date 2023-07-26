@@ -89,7 +89,7 @@ The workflows of `bin` can be [view summary here](https://github.com/uplau/rust-
 
 The workflows of `lib` can be [view summary here](https://github.com/uplau/rust-template-demo/actions/runs/5644157705), [view file here](https://github.com/uplau/rust-template-demo/blob/lib-default-use/.github/workflows/cicd.yaml).
 
-### `jobs.release_please` `only_bin`
+### `jobs.release_please`
 
 We use [Release Please](https://github.com/google-github-actions/release-please-action) parses your git history, looking for [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/), and creating release PRs to:
 
@@ -98,8 +98,8 @@ We use [Release Please](https://github.com/google-github-actions/release-please-
 > **You need allow GitHub Actions to create and approve pull requests**, setting can be managed by admins in organization settings under Actions > General > Workflow permissions.
 
 - Bumps Crate version
-- Create GitHub tags
-- Generate CHANGELOG
+- Create Github tag
+- Generate Changelog
 
 ### `jobs.ci`
 
