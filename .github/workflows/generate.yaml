@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       create-gh-repo:
-        description: "Create Github repository, authors will be ignored"
+        description: "Create Github repository, owner will be ignored"
         default: false
         type: boolean
       gh-repo-visibility:
