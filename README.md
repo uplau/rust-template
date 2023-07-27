@@ -100,17 +100,18 @@ cargo generate --git https://github.com/uplau/rust-template ./template --name "c
 
 Workflows of `bin` can be view:
 
-- [automatic summary](https://github.com/uplau/rust-template-demo/actions/runs/5672076317)
-- [release please PR](https://github.com/uplau/rust-template-demo/pull/1)
-- [automatic release](https://github.com/uplau/rust-template-demo/releases/tag/v0.1.0)
-- [manually summary](https://github.com/uplau/rust-template-demo/actions/runs/5671922967)
-- [manually release](https://github.com/uplau/rust-template-demo/releases/tag/next)
 - [workflow file](https://github.com/uplau/rust-template-demo/blob/main/.github/workflows/cicd.yaml)
+- [on push and pull request summary](https://github.com/uplau/rust-template-demo/actions/runs/5683949188)
+- [release please PR](https://github.com/uplau/rust-template-demo/pull/1)
+- [automatic release summary](https://github.com/uplau/rust-template-demo/actions/runs/5684009518)
+- [automatic release assets](https://github.com/uplau/rust-template-demo/releases/tag/v0.1.0)
+- [manually release summary](https://github.com/uplau/rust-template-demo/actions/runs/5684125035)
+- [manually release assets](https://github.com/uplau/rust-template-demo/releases/tag/next)
 
 Workflows of `lib` can be view:
 
-- [manually summary](https://github.com/uplau/rust-template-demo/actions/runs/5671896111)
-- [workflow file](https://github.com/uplau/rust-template-demo/blob/lib-default-use/.github/workflows/cicd.yaml)
+- [workflow file](https://github.com/uplau/rust-template-demo/blob/lib-yes-use-all/.github/workflows/cicd.yaml)
+- [manually summary](https://github.com/uplau/rust-template-demo/actions/runs/5684106223)
 
 ### `jobs.release_please`
 
