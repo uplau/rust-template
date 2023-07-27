@@ -132,19 +132,19 @@ We use [Release Please](https://github.com/google-github-actions/release-please-
 
 We run the following command to complete continuous integration:
 
+https://github.com/uplau/rust-template/blob/7b8fe911cd41c14db2fc5fab4b83c40b49bc52a5/template/.github/workflows/cicd.yaml#L53
+
 - `cargo test`
 - `cargo fmt`
 - `cargo clippy`
 
 ### `jobs.build` `only_bin`
 
-When ci is passed, we build under the following targets:
+When the ci passed, we build statically linked binaries under the following targets:
 
-> `static_link` `64bit`
+> You can modify it as you like, but you need to pay attention to some extra steps for some target.
 
-- `macOS`
-- `Linux`
-- `Windows`
+https://github.com/uplau/rust-template/blob/7b8fe911cd41c14db2fc5fab4b83c40b49bc52a5/template/.github/workflows/cicd.yaml#L89-L103
 
 ### `jobs.*_release` `only_bin`
 
