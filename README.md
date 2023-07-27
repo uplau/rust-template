@@ -69,7 +69,7 @@ This will not affect your Github, give it a try:
 
 3. [Creating encrypted secrets for a repository](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
    > Name field:
-   > `PAT_CREATE_REPO`
+   > `PAT_ADMIN_CODE_WORKFLOWS`
 
 ### Use cargo-generate
 

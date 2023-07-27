@@ -110,7 +110,7 @@ jobs:
       - uses: actions/download-artifact@v3
       - name: Create Github repository
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_CREATE_REPO }}
+          GITHUB_TOKEN: ${{ secrets.PAT_ADMIN_CODE_WORKFLOWS }}
         run: |
           ########## script ##########
           cd "template-${{ inputs.crate-name }}/${{ inputs.crate-name }}"
