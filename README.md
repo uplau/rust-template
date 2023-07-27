@@ -1,6 +1,6 @@
 # rust-template
 
-[![View](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fuplau%2Frust-template&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=View&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fuplau%2Frust-template&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Views&edge_flat=false)](https://hits.seeyoufarm.com)
 [![GitHub workflow status](https://github.com/uplau/rust-template/actions/workflows/generate.yaml/badge.svg)](https://github.com/uplau/rust-template/actions/workflows/generate.yaml)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](./LICENSE-MIT)
 
@@ -140,7 +140,7 @@ https://github.com/uplau/rust-template/blob/7b8fe911cd41c14db2fc5fab4b83c40b49bc
 
 ### `jobs.build` `only_bin`
 
-When the ci passed, we build statically linked binaries under the following targets:
+When the ci passed, we build statically linked binaries under the following targets and upload the artifacts:
 
 > You can modify it as you like, but you need to pay attention to some extra steps for some target.
 
@@ -148,7 +148,7 @@ https://github.com/uplau/rust-template/blob/7b8fe911cd41c14db2fc5fab4b83c40b49bc
 
 ### `jobs.*_release` `only_bin`
 
-When the build passes, we upload the artifacts and publish to Github releases, which you can download at any time at the bottom of the workflow summary page:
+When the build passed, we download the artifacts and publish to Github releases, which you can download at any time at the bottom of the workflow summary page:
 
 - `manually_release`: Triggered by `workflow_dispatch`
 - `automatic_release`: Triggered by `release_please`
