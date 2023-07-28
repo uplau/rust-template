@@ -54,7 +54,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: dtolnay/rust-toolchain@stable
 
       #- name: Check template exits
 
@@ -85,10 +84,16 @@ jobs:
           echo "GENERATE_DEFINE=${generate_define}" | tee -a "$GITHUB_ENV"
 
       - name: Install cargo-generate
-        uses: baptiste0928/cargo-install@v2
-        with:
-          crate: cargo-generate
-          features: vendored-openssl
+        run: |
+          ########## script ##########
+          latest=$(curl -sL https://api.github.com/repos/cargo-generate/cargo-generate/releases/latest | jq -r ".tag_name" )
+          echo "latest: $latest"
+
+          dl_url="https://github.com/cargo-generate/cargo-generate/releases/download/${latest}/cargo-generate-${latest}-x86_64-unknown-linux-musl.tar.gz"
+          path="/usr/local/bin/"
+          echo "download: $dl_url" \
+            && wget -q "$dl_url" -P "$path" \
+            && tar -zxf "/usr/local/bin/cargo-generate-${latest}-x86_64-unknown-linux-musl.tar.gz" -C "$path"
 
       - name: Generate template
         run: |

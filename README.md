@@ -22,9 +22,9 @@ A github rust workflows template, just want to focus on coding.
 
 ## Features
 
-- [x] Fast generate template with GitHub Actions and caching
-- [x] Support [cargo-generate](https://github.com/cargo-generate/cargo-generate)
 - [x] Directly create your Github repository
+- [x] Fast generate template with GitHub Actions
+- [x] Support [cargo-generate](https://github.com/cargo-generate/cargo-generate)
 
 ### Template
 
@@ -54,8 +54,6 @@ This will not affect your Github, give it a try:
 4. Above the list of workflow runs, click the **Run workflow** button.
 5. When all work is done, at the bottom of the workflow summary page, download template artifacts.
 6. Enjoy!
-
-> ⬆️ When running for the first time, the cache needs to be created. Next time, soon.
 
 **If need directly create your Github repository, in addition to all the above steps, you also need:**
 
