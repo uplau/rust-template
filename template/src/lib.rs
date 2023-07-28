@@ -1,3 +1,5 @@
+#![cfg_attr(debug_assertions, allow(unused, dead_code))]
+
 #[cfg(test)]
 mod tests {
     #[test]
